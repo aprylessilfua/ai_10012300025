@@ -1,3 +1,5 @@
+#Name: Apryl Poku 10012300025
+
 pandas
 PyPDF2
 sentence-transformers
