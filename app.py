@@ -60,12 +60,12 @@ if submitted:
             st.error(f"Failed to initialize pipeline: {e}")
             st.stop()
 
-        with st.spinner("Running retrieval, re-ranking, and Gemini…"):
+        with st.spinner("Running retrieval, re-ranking, and Groq…"):
             try:
                 result = run_rag_pipeline(user_query.strip(), retriever)
             except RuntimeError as e:
                 st.error(str(e))
-                st.caption("Set `GEMINI_API_KEY` in your environment before running queries.")
+                st.caption("Set `GROQ_API_KEY` in your environment before running queries.")
                 st.stop()
             except Exception as e:
                 st.error(f"Pipeline error: {e}")

@@ -1,6 +1,7 @@
 pandas
 PyPDF2
 sentence-transformers
+torchvision
 faiss-cpu
 streamlit
-google-genai
+groq
