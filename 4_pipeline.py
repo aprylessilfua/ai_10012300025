@@ -88,12 +88,15 @@ def _llm_text(response) -> str:
     return "\n".join(parts).strip() if parts else str(response)
 
 
-def run_rag_pipeline(query: str, retriever) -> str:
+def run_rag_pipeline(query: str, retriever) -> dict[str, object]:
     """
     Manual flow: query -> FAISS -> rerank -> context -> prompt -> Gemini -> answer.
 
     ``retriever`` must provide ``.search(query: str, k: int) -> list[tuple[str, float]]``
     (e.g. ``FaissChunkRetriever`` from ``2_retrieval.py``).
+
+    Returns a dict with keys: ``answer`` (str), ``retrieval_hits`` (list of (chunk, FAISS score)),
+    ``reranked`` (list of (chunk, cross-encoder score)), ``prompt`` (str).
     """
     reranker = _get_reranker()
 
@@ -139,7 +142,12 @@ def run_rag_pipeline(query: str, retriever) -> str:
     print("\n========== FINAL LLM RESPONSE ==========")
     print(answer)
 
-    return answer
+    return {
+        "answer": answer,
+        "retrieval_hits": hits,
+        "reranked": reranked,
+        "prompt": prompt,
+    }
 
 
 if __name__ == "__main__":

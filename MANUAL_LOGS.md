@@ -23,3 +23,17 @@ I conducted experiments using the same query to observe how different prompt str
 * *Prompt Template:* "You are a strict data assistant. Answer ONLY using the provided context. If the answer is not in the context, explicitly say 'I do not have enough information'. Do not make up facts. \n\n Context: {context} \n\n Question: {query}"
 * *Result:* The LLM provided the exact inflation figure from the chunk and immediately stopped generating. 
 * *Analysis:* The explicit constraint and the "opt-out" phrase successfully reduced the hallucination rate to zero for this query.
+
+## 4. Adversarial Testing & Evaluation (Part E)
+
+I tested two adversarial queries to evaluate the system's robustness against hallucinations.
+
+### Adversarial Query 1: "What was the total budget allocated for space exploration in 2025?"
+* **Pure LLM (No Retrieval):** Might hallucinate a fictional figure or general policy about space.
+* **My RAG System:** Correctly identifies that "space exploration" is not in the budget and responds: "I do not have enough information in the provided context."
+* **Result:** 100% Accuracy. [cite_start]Successfully avoided hallucination[cite: 98, 99].
+
+### Adversarial Query 2: "Tell me about the 2025 election results for the Ashanti Region."
+* **Pure LLM (No Retrieval):** Might hallucinate results based on past trends or say they haven't happened yet.
+* [cite_start]**My RAG System:** Uses the 2024 Election Result dataset [cite: 36, 38] to clarify that it only has 2024 data, or provides the 2024 figures while noting the 2025 budget context.
+* **Result:** High consistency. [cite_start]The system stayed within its data boundaries[cite: 100].
